@@ -6,7 +6,7 @@ author: csunilkumar
 ---
 # Apache Spark | Issues observed when downloading and starting up of Spark
 
-## Scenario: Downloaded Spark binary without hadoop from  [spark-2.4.5-bin-without-hadoop.tgz](https://downloads.apache.org/spark/spark-2.4.5/spark-2.4.5-bin-without-hadoop.tgz)
+## Scenario: Downloaded Spark binary without hadoop from  [spark-2.4.5-bin-without-hadoop.tgz](https://downloads.apache.org/spark/spark-2.4.5/spark-2.4.5-bin-without-hadoop.tgz and run spark-shell to fail with following error
 
 ```root@kcubuntu:/opt/spark/spark-2.4.5-bin-without-hadoop# ./bin/spark-shell
 /opt/spark/spark-2.4.5-bin-without-hadoop/conf/spark-env.sh: line 70: /usr/hadoop/hadoop-3.2.1/bin/hadoop: No such file or directory
@@ -25,27 +25,18 @@ Caused by: java.lang.ClassNotFoundException: org.slf4j.Logger
 	at sun.misc.Launcher$AppClassLoader.loadClass(Launcher.java:352)
 	at java.lang.ClassLoader.loadClass(ClassLoader.java:351)
 	... 7 more
-
-
-```
-
-## Issue
-
-You receive the following exception when trying to execute a Spark activity in an Azure Data Factory pipeline:
-
-```java
-Exception in thread "main" java.lang.IllegalArgumentException: 
-Wrong FS: wasbs://additional@xxx.blob.core.windows.net/spark-examples_2.11-2.1.0.jar, expected: wasbs://wasbsrepro-2017-11-07t00-59-42-722z@xxx.blob.core.windows.net
 ```
 
 ## Cause
+Once downloaded, follow this article [use Hadoop’s ‘classpath’ command](https://spark.apache.org/docs/latest/hadoop-provided.html) to tell spark where to find hadoops classpath.  
+Steps.
+-	Find ```spark-env.sh.template``` under conf folder, copyspark-env.sh.template to spark-env.sh.  
+-	Edit spark-env.sh with this at the very end.
+``` export SPARK_DIST_CLASSPATH=$(/usr/local/hadoop/bin/hadoop classpath) ```  
+-	Change " the/usr/local/hadoop ..." to whereever hadoop is installed
+-	You can test if the classpath is produced by hadoop by simply typing in the command:```/usr/local/hadoop/bin/hadoop classpath```
+- 	Should return something like ```/usr/local/hadoop/etc/hadoop:/usr/local/hadoop/share/hadoop/common/lib/*:/usr/local/hadoop/share/hadoop/common/*:/usr/local/hadoop/share/hadoop/hdfs:/usr/local/hadoop/share/hadoop/hdfs/lib/*:/usr/local/hadoop/share/hadoop/hdfs/*:/usr/local/hadoop/share/hadoop/yarn/lib/*:/usr/local/hadoop/share/hadoop/yarn/*:/usr/local/hadoop/share/hadoop/mapreduce/lib/*:/usr/local/hadoop/share/hadoop/mapreduce/*:/usr/local/hadoop/contrib/capacity-scheduler/*.jar```
 
-A Spark job will fail if the application jar file is not located in the Spark cluster’s default/primary storage.
+## Conclusion
 
-This is a known issue with the Spark open source framework tracked in this bug: [Spark job fails if fs.defaultFS and application jar are different url](https://issues.apache.org/jira/browse/SPARK-22587)
-
-This issue has been resolved in Spark 2.3.0
-
-## Solution
-
-Make sure the application jar is stored on the default/primary storage for the HDInsight cluster. In case of Azure Data Factory make sure the ADF linked service is pointed to the HDInsight default container rather than a secondary container.
+Adding ```export SPARK_DIST_CLASSPATH=$(/usr/local/hadoop/bin/hadoop classpath)``` at the end of the spark-env.sh  will work to glue spark to hadoop.
