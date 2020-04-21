@@ -8,6 +8,27 @@ author: csunilkumar
 
 ## Scenario: Downloaded Spark binary without hadoop from  [spark-2.4.5-bin-without-hadoop.tgz](https://downloads.apache.org/spark/spark-2.4.5/spark-2.4.5-bin-without-hadoop.tgz)
 
+```root@kcubuntu:/opt/spark/spark-2.4.5-bin-without-hadoop# ./bin/spark-shell
+/opt/spark/spark-2.4.5-bin-without-hadoop/conf/spark-env.sh: line 70: /usr/hadoop/hadoop-3.2.1/bin/hadoop: No such file or directory
+Error: A JNI error has occurred, please check your installation and try again
+Exception in thread "main" java.lang.NoClassDefFoundError: org/slf4j/Logger
+	at java.lang.Class.getDeclaredMethods0(Native Method)
+	at java.lang.Class.privateGetDeclaredMethods(Class.java:2701)
+	at java.lang.Class.privateGetMethodRecursive(Class.java:3048)
+	at java.lang.Class.getMethod0(Class.java:3018)
+	at java.lang.Class.getMethod(Class.java:1784)
+	at sun.launcher.LauncherHelper.validateMainClass(LauncherHelper.java:650)
+	at sun.launcher.LauncherHelper.checkAndLoadMain(LauncherHelper.java:632)
+Caused by: java.lang.ClassNotFoundException: org.slf4j.Logger
+	at java.net.URLClassLoader.findClass(URLClassLoader.java:382)
+	at java.lang.ClassLoader.loadClass(ClassLoader.java:418)
+	at sun.misc.Launcher$AppClassLoader.loadClass(Launcher.java:352)
+	at java.lang.ClassLoader.loadClass(ClassLoader.java:351)
+	... 7 more
+
+
+```
+
 ## Issue
 
 You receive the following exception when trying to execute a Spark activity in an Azure Data Factory pipeline:
