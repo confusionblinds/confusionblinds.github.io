@@ -29,11 +29,13 @@ sudo tar -xf spark-2.4.5-bin-hadoop2.7.tgz -C /opt/spark/
 
 ![Spark shell application UI](./media/download-install-local-spark-03.png)
 
-
-
-
 ## Exploring Folders
 - /bin  : 
 - /conf :
 - /jars :
+
+## Explaining Spark Basic Architecture using a sample spark Application
+- Spark Application : Spark application is a Scala /  Python / R that makes use of Spark API, Sparksession is an entry point for Spark API. Starting Spark 2.0 way to use Spark API is to create a sparkSesion object.
+- Sparksession object can be used to created RDD,Dataframes and Datasets, using RDDs, Dataframes and Datasets you leverage Spark API.
+- Spark Driver : 
 
