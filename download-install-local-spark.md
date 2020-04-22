@@ -8,6 +8,8 @@
 - /etc/environment is a system-wide configuration file, which is used by all users.
 
 ## Steps
+- Browse to [Apache Spark download page](http://spark.apache.org/downloads.html), select the spark prebuild with hadoop.
+![Download spark](./media/download-install-local-spark-01.png)
 
 - Download the package using wget, this will get downloaded
 ```
