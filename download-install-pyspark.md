@@ -1,9 +1,13 @@
-# Apache Spark | Download spark, create a local setup.
+# Apache Spark | setup Pyspark
 
-## Scenario: Learn how to download, setup up spark binary that are ready to execute sample locally on a linux machine.
+## Scenario: Configure python3 to start pyspark
 
 ## Pre-reqs
 Ubuntu 18.04 ships with Python 3, as the default Python installation, check if python3 is already installed using command ```python3 --version```. Use command ```sudo apt-get install python3.6``` to install latest version of Python if not already installed.  
+
+
+
+
 
 ### Steps to install pip (pip3) for Python 3:
 Run ```sudo apt install python3-pip``` to install pip for Python3, check pip version using ```pip3 --version```
