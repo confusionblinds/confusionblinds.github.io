@@ -44,8 +44,9 @@ env: ‘python’: No such file or directory```, set environment variable ```exp
   
 ## Exploring Folders
 - /bin  : Conatins Shell scripts that are used to sumbit spark application.
-- /conf :
+- /conf : Spark configuration, Logging properties, spark enironment templates are stored in conf folder.
 - /jars :
+- /sbin :
 
 ## Explaining Spark application concepts using a sample spark Application
 - Spark Application : Spark application is a Scala /  Python / R that makes use of Spark API, Sparksession is an entry point for Spark API. Starting Spark 2.0 way to use Spark API is to create a sparkSesion object.
