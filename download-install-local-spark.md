@@ -7,6 +7,7 @@
 - Make user JAVA is installed and JAVA_HOME is set right by adding ```JAVA_HOME="/opt/java/zulu-8-azure-jdk_8.46.0.19-8.0.252-linux_x64"``` at the end of the file in /etc/environment
 
 - /etc/environment is a system-wide configuration file, which is used by all users.
+- Ubuntu 18.04 ships with Python 3, as the default Python installation, check if python3 is already installed using command python3 --version. Use command sudo apt-get install python3.6 to install latest version of Python if not already installed.
 
 ## Steps
 - Browse to [Apache Spark download page](http://spark.apache.org/downloads.html), select the spark prebuild with hadoop.
@@ -21,7 +22,7 @@ wget http://apache.mirrors.hoobly.com/spark/spark-2.4.5/spark-2.4.5-bin-hadoop2.
 ```
 sudo tar -xf spark-2.4.5-bin-hadoop2.7.tgz -C /opt/spark/
 ```
-- Test if spark-shell gets started, browser to folder where spark binaries were extracted, ```cd /opt/spark/spark-2.4.5-bin-hadoop2.7``` and execute ```./bin/spark-shell command``` this should successfully start spark, display spark verion banner and stop at a scala prompt.
+- Test if spark-shell gets started, browser to folder where spark binaries were extracted, ```cd /opt/spark/spark-2.4.5-bin-hadoop2.7``` and execute ```./bin/spark-shell``` command this should successfully start spark, display spark verion banner and stop at a scala prompt.
 
 ![Spark-shell](./media/download-install-local-spark-02.png)
 
@@ -29,9 +30,17 @@ sudo tar -xf spark-2.4.5-bin-hadoop2.7.tgz -C /opt/spark/
 
 ![Spark shell application UI](./media/download-install-local-spark-03.png)
 
-## Access the power of Spark using Python : Download, Install and setup pyspark.  
+## Access the power of Spark using Python
+
 ### Pyspark : A python API written in python to support Apache spark.  
 PySpark is a wrapper around Spark core. When spark session is started in Python in the background, PySpark uses Py4j to launch a Java virtual machine and creates a Java Spark context.All Py4j does is allow Python programs to dynamically access Java objects in a Java virtual machine. Readmore about Py4j [here](https://www.py4j.org/)
+
+Check pyspark is working successfully, by changing the directory to ```cd /opt/spark/spark-2.4.5-bin-hadoop2.7``` and execute ```./bin/pyspark ``` command. 
+
+
+If pyspark command fails with ```./bin/pyspark: line 45: python: command not found
+env: ‘python’: No such file or directory```, set environment variable ```export PYSPARK_PYTHON=python3```
+
   
 ## Exploring Folders
 - /bin  : Conatins Shell scripts that are used to sumbit spark application.
