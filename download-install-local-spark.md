@@ -29,6 +29,10 @@ sudo tar -xf spark-2.4.5-bin-hadoop2.7.tgz -C /opt/spark/
 
 ![Spark shell application UI](./media/download-install-local-spark-03.png)
 
+## Access the power of Spark using Python : Download, Install and setup pyspark.  
+### Pyspark : A python API written in python to support Apache spark.  
+PySpark is a wrapper around Spark core. When spark session is started in Python in the background, PySpark uses Py4j to launch a Java virtual machine and creates a Java Spark context.All Py4j does is allow Python programs to dynamically access Java objects in a Java virtual machine. Readmore about Py4j [here](https://www.py4j.org/)
+  
 ## Exploring Folders
 - /bin  : Conatins Shell scripts that are used to sumbit spark application.
 - /conf :
