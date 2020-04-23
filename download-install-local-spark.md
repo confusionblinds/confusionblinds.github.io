@@ -30,16 +30,25 @@ sudo tar -xf spark-2.4.5-bin-hadoop2.7.tgz -C /opt/spark/
 
 ![Spark shell application UI](./media/download-install-local-spark-03.png)
 
-## Access the power of Spark using Python
-
-### Pyspark : A python API written in python to support Apache spark.  
-PySpark is a wrapper around Spark core. When spark session is started in Python in the background, PySpark uses Py4j to launch a Java virtual machine and creates a Java Spark context.All Py4j does is allow Python programs to dynamically access Java objects in a Java virtual machine. Readmore about Py4j [here](https://www.py4j.org/)
+### Access the power of Spark using Python
+Pyspark : A python API written in python to support Apache spark. PySpark is a wrapper around Spark core. When spark session is started in Python in the background, PySpark uses Py4j to launch a Java virtual machine and creates a Java Spark context.All Py4j does is allow Python programs to dynamically access Java objects in a Java virtual machine. Readmore about Py4j [here](https://www.py4j.org/)
 
 Check pyspark is working successfully, by changing the directory to ```cd /opt/spark/spark-2.4.5-bin-hadoop2.7``` and execute ```./bin/pyspark ``` command. 
 
-
 If pyspark command fails with ```./bin/pyspark: line 45: python: command not found
 env: ‘python’: No such file or directory```, set environment variable ```export PYSPARK_PYTHON=python3```
+
+### Monitoring and Instrumentaion using Spark history server
+Start history servery by browing to the spark folder, execting ```/opt/spark/spark-2.4.5-bin-hadoop2.7/sbin# ./start-history-server.sh```
+Output
+```
+starting org.apache.spark.deploy.history.HistoryServer, logging to /opt/spark/spark-2.4.5-bin-hadoop2.7/logs/spark-root-org.apache.spark.deploy.history.HistoryServer-1-kcubuntu.out
+failed to launch: nice -n 0 /opt/spark/spark-2.4.5-bin-hadoop2.7/bin/spark-class org.apache.spark.deploy.history.HistoryServer
+  	at org.apache.spark.deploy.history.FsHistoryProvider.<init>(FsHistoryProvider.scala:207)
+  	at org.apache.spark.deploy.history.FsHistoryProvider.<init>(FsHistoryProvider.scala:86)
+  	... 6 more
+  Caused by: java.io.FileNotFoundException: File file:/tmp/spark-events does not exist
+```
 
   
 ## Exploring Folders
