@@ -30,7 +30,27 @@ Next step is to select the library, click on create, select the version 2.11.12 
 Click 'next' for show 'New Project' screen to appear, here enter project name 'SparkWordCount' and select a path to create your first project and finish to create a new project. In the idea project right click on 'src' -> 'New' -> 'Scala Class' enter the name 'ScalaWordCount'. Copy paste the code shown below,observe most of the Classes and Methods related to spark will not be recoginised. 
 
 ```
+import org.apache.spark.{SparkContext,SparkConf}
+
+object ScalaWordCount {
+
+  def main(args: Array[String]): Unit = {
+    println("Hello")
+    val conf = new SparkConf().setAppName("First Scala Word Count")//.setMaster("local")
+    val sc = new SparkContext(conf)
+    sc.setLogLevel("DEBUG")
+    val textFile = sc.textFile("/var/log/syslog")
+    val counts = textFile.flatMap(line => line.split(" "))
+      .map(word => (word, 1))
+      .reduceByKey(_ + _)
+    counts.saveAsTextFile("/home/sunil/Documents/output1")
+    //println(counts.count())
+
+  }
+}
 ```
+
+
 This is when references to spark 'spark-code_2.11-2.4.5.jar', haoop 'hadoop-common-2.7.3.jar' and 'jackson-annotations-2.6.7.jar'need to be added. Goto 'File' -> 'Project Structure' -> 'Libraries' -> click the '+' -> Java, under 'Select Library Files' browse to spark/jars to select spark-core_2.11-2.4.5.jar and repeat the same to add 'hadoop-common-2.7.3.jar' and 'jackson-annotations-2.6.7.jar'. This step should resolve all issue with references.
 
 ![Adding reference jars](./media/download-install-intellij-05.png)
@@ -43,5 +63,5 @@ Confirm the jars are added under External Libraries, Porject name in the sample 
 
 To build a jar, Goto 'Build' -> 'Build Artifacts' -> Select <your_project>.jar -> 'Build'. Once the build succeeds, jar file will be created under '/<your_pojrect>/out/artifacts/<your_project>_jar/<your_project.jar'. Now that the jar is ready why wait lets execute our sample application 
 
-``````
+```./bin/spark-submit --class ScalaWordCount --master local /home/sunil/Documents/SparkWordCount/out/artifacts/SparkWordCount_jar/SparkWordCount.jar```
 
