@@ -63,5 +63,5 @@ Confirm the jars are added under External Libraries, Porject name in the sample 
 
 To build a jar, Goto 'Build' -> 'Build Artifacts' -> Select <your_project>.jar -> 'Build'. Once the build succeeds, jar file will be created under '/<your_pojrect>/out/artifacts/<your_project>_jar/<your_project.jar'. Now that the jar is ready why wait lets execute our sample application 
 
-```./bin/spark-submit --class ScalaWordCount --master local /home/sunil/Documents/SparkWordCount/out/artifacts/SparkWordCount_jar/SparkWordCount.jar```
+```./bin/spark-submit --class ScalaWordCount --master local SparkWordCount.jar```
 
