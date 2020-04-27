@@ -9,5 +9,12 @@
 ![Setting up JAVA bin path](./media/download-install-intellij-01.png)
 
 ## Steps
+### Installing Intellij and configuring Scala plugin on Ubuntu
+
+Use wget to download intellij communitity edition ```wget https://download.jetbrains.com/idea/ideaIE-2020.1.tar.gz```, using tar command unzip to opt folder ```tar -xf ideaIE-2020.1.tar.gz -C /opt/``` finally browse to the installaed folder ```/opt/idea-IE-201.6668.155``` to exectue ```./bin/idea.sh``` to open Injellij IDE. Click on configure on the welcom to intellij IDEA screen, select plugin to open a new window with the list of plugins search for scala make sure scala is installed.
+
+![confirm if scala plugin in installed](./media/download-install-intellij-03.png)
+
+
 Verified the version of scala used in Spark-2.4.5.
 ![Scala version used in Spark-2.4.5](./media/download-install-intellij-02.png)
