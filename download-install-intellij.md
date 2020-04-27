@@ -1,4 +1,4 @@
-# Apache Spark | Download, Install Scala and Intellij community edition to setup developement environment for spark with Intellij
+# Apache Spark | Download, Install Intellij community edition to setup developement environment for spark with Intellij.
 
 ## Scenario: 
 
