@@ -43,7 +43,7 @@ object ScalaWordCount {
     val counts = textFile.flatMap(line => line.split(" "))
       .map(word => (word, 1))
       .reduceByKey(_ + _)
-    counts.saveAsTextFile("/home/sunil/Documents/output1")
+    counts.saveAsTextFile("/home/user/output1")
     //println(counts.count())
 
   }
