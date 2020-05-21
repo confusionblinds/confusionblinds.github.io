@@ -58,7 +58,18 @@ anaconda: /opt/anaconda3/bin/anaconda
 By Default all python packages are installed to a single directory on the system, which can become a problem when building multiple python projects that has different and potential conflicting depends, this problem can be solve y busing  Virtual Environment.
 
 ### How ?
-Create new Directory for each Virtual Environment. links copies of Python executable, Library and Tools
+Create new Directory for each Virtual Environment, with links to system's Python executable, Library and Tools. Provide sub-directories for installing additional python packages.
+
+To quickly create an environment using conda, you can type in the following command, observe ‘conda create’ command will effectively load all of the packages at once.
+```
+sudo /opt/anaconda3/condabin/conda create --prefix /opt/anaconda3/envs/python36env python=3.6 anaconda --yes
+```
+- `/opt/anaconda3/condabin/conda` is the conda path
+- `--prefix` specifie full path to environment location to create a conda virtual environment, `python36env` is the virtual envrionment name and this virtual environment is configured to use `Python=3.6`
+
+- Display all the current environments `conda info --envs`
+
+- To use one of the environment listed use `conda activate` combine with the path to the environment that would be `conda activate /opt/anaconda3/envs/python36env` to use the newly created python virtual environment. And to stop using the environment type in `conda deactivate`. Finally `conda remove  --prefix /opt/anaconda3/envs/python36env --all`.
 
 
 
