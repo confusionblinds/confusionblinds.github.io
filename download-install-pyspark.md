@@ -82,6 +82,24 @@ Create a virtual environment call `pysparkjupyter`, activate that environment an
 
 https://docs.conda.io/projects/conda/en/latest/user-guide/tasks/manage-environments.html#saving-environment-variables
 
+
+
+```
+
+(pysparkdriver) root@kcubuntu:/home/sunil# conda env confg vars list
+usage: conda-env [-h] {create,export,list,remove,update,config} ...
+conda-env: error: invalid choice: 'confg' (choose from 'create', 'export', 'list', 'remove', 'update', 'config')
+(pysparkdriver) root@kcubuntu:/home/sunil# conda env config vars list
+(pysparkdriver) root@kcubuntu:/home/sunil# conda env config vars set PYSPARK_DRIVER_PYTHON=jupyter -p /opt/anaconda3/envs/pysparkdriver/
+To make your changes take effect please reactivate your environment
+(pysparkdriver) root@kcubuntu:/home/sunil# conda env config vars set PYSPARK_DRIVER_PYTHON_OPTS='notebook' -p /opt/anaconda3/envs/pysparkdriver/
+To make your changes take effect please reactivate your environment
+(pysparkdriver) root@kcubuntu:/home/sunil# conda env config vars list
+PYSPARK_DRIVER_PYTHON = jupyter
+PYSPARK_DRIVER_PYTHON_OPTS = notebook
+
+```
+
 ## findspark
 ```python3 -m pip install findspark
 ```
