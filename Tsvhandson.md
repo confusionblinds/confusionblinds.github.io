@@ -29,17 +29,39 @@ val titlesRDD = spark.read.format("csv").option("sep","\t").option("header","tru
 
 titlesRDD.take(10)'
 
+Number of line entries in the file
+```
 val totalRecords = titlesRDD.count()
-println(s"Total number of Title to be processed:$totalRecords")
+println(s"Number of records in the data file: $totalRecords")
+```
 
-How many types of titles 
-val distrinctTitleType = titlesRDD.map(x => x(1))
-distinctTitleType.distinct().collect().foreach(println)
+How many types of Titles are store in the titles file?
+
+```
+println(s"Q1: How many types of Titles are store in the titles file?")
+val distinctTitleTypeRDD = titlesRDD.map(x => x(1))
+distinctTitleTypeRDD.distinct().collect().foreach(println)
+```
+
+// Q2: HOW MANY INCIDEDNTS OF EACH CALL TYPE WHERE THERE?
+println(s"Q2: HOW MANY INCIDEDNTS OF EACH CALL TYPE WHERE THERE?")
+val distinctTypesOfCallsSortedRDD = distinctTitleTypeRDD.map(x => (x, 1)).reduceByKey((x, y) => (x + y)).map(x => (x._2, x._1)).sortByKey(false)
+distinctTypesOfCallsSortedRDD.collect().foreach(println)
 
 
 
-distinctTitleType.distinct().collect().foreach(println)
-
+// Q3: HOW MANY YEARS OF FIRE SERVICE CALLS IS IN THE DATA FILES AND INCIDENTS PER YEAR?
+println(s"Q3: HOW MANY YEARS OF FIRE SERVICE CALLS IS IN THE DATA FILES AND INCIDENTS PER YEAR?")
+ val fireServiceCallYearsRDD = filteredFireServiceCallRDD.map(convertToYear).map(x => (x, 1)).reduceByKey((x, y) => (x + y)).map(x => (x._2, x._1)).sortByKey(false)
+fireServiceCallYearsRDD.take(20).foreach(println)
+// Q4: HOW MANY SERVICE CALLS WERE LOGGED IN FOR THE PAST 7 DAYS?
+println(s"Q4: HOW MANY SERVICE CALLS WERE LOGGED IN FOR THE PAST 7 DAYS?")
+val last7DaysServiceCallRDD = filteredFireServiceCallRDD.map(convertToDate).map(x => (x, 1)).reduceByKey((x, y) => (x + y)).sortByKey(false)
+last7DaysServiceCallRDD.take(7).foreach(println)
+// Q5: WHICH NEIGHBORHOOD IN SF GENERATED THE MOST CALLS LAST YEAR? 
+println(s"Q5: WHICH NEIGHBORHOOD IN SF GENERATED THE MOST CALLS LAST YEAR?")
+val neighborhoodDistrictCallsRDD = filteredFireServiceCallRDD.filter(row => (convertToYear(row) == "2016")).map(x => x(31)).map(x => (x, 1)).reduceByKey((x, y) => (x + y)).map(x => (x._2, x._1)).sortByKey(false)
+neighborhoodDistrictCallsRDD.collect().foreach(println)
 
 
 
