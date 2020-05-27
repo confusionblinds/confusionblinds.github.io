@@ -24,10 +24,15 @@ tt0000008	short	Edison Kinetoscopic Record of a Sneeze	Edison Kinetoscopic Recor
 tt0000009	movie	Miss Jerry	Miss Jerry	0	1894	\N	45	Romance
 ```
 
-
+```
 val titlesRDD = spark.read.format("csv").option("sep","\t").option("header","true").option("inferSchema","true").load("/home/sunil/Downloads/title.basics.tsv").rdd
+```
+
+
+
 
 titlesRDD.take(10)'
+
 
 Number of line entries in the file
 ```
@@ -35,19 +40,20 @@ val totalRecords = titlesRDD.count()
 println(s"Number of records in the data file: $totalRecords")
 ```
 
-How many types of Titles are store in the titles file?
 
+How many types of Titles are store in the titles file?
 ```
 println(s"Q1: How many types of Titles are store in the titles file?")
 val distinctTitleTypeRDD = titlesRDD.map(x => x(1))
 distinctTitleTypeRDD.distinct().collect().foreach(println)
 ```
 
-// Q2: HOW MANY INCIDEDNTS OF EACH CALL TYPE WHERE THERE?
-println(s"Q2: HOW MANY INCIDEDNTS OF EACH CALL TYPE WHERE THERE?")
+// Q2: How many Titles of each type of category?
+```
+println(s"Q2: How many Titles of each type of category?")
 val distinctTypesOfCallsSortedRDD = distinctTitleTypeRDD.map(x => (x, 1)).reduceByKey((x, y) => (x + y)).map(x => (x._2, x._1)).sortByKey(false)
 distinctTypesOfCallsSortedRDD.collect().foreach(println)
-
+```
 
 
 // Q3: HOW MANY YEARS OF FIRE SERVICE CALLS IS IN THE DATA FILES AND INCIDENTS PER YEAR?
