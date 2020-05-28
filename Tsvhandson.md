@@ -19,11 +19,11 @@ tt0000009	movie	Miss Jerry	Miss Jerry	0	1894	\N	45	Romance
 
 ```
 val titlesRDD = spark.read.format("csv").option("sep","\t").option("header","true").option("inferSchema","true").load("/home/sunil/Downloads/title.basics.tsv").rdd
-```
+
 titlesRDD.take(10)'
 
 Number of line entries in the file
-```
+
 val totalRecords = titlesRDD.count()
 println(s"Number of records in the data file: $totalRecords")
 ```
@@ -43,10 +43,75 @@ val distinctTypesOfCallsSortedRDD = TitleOnlyTypeRDD.map(x => (x, 1)).reduceByKe
 distinctTypesOfCallsSortedRDD.collect().foreach(println)
 ```
 
-val titleOnlyTypeRDD = titlesRDD.map(x => x(1))
-val eachTitleMappedRDD = titleOnlyTypeRDD.map(x => (x, 1))
-val titleCountRDD = eachTitleMappedRDD.reduceByKey((x, y) => (x + y))
-val resultRDD = titleCountRDD.map(x => (x._2, x._1))
+val titlesRDD = spark.read.format("csv").option("sep","\t").option("header","true").option("inferSchema","true").load("/home/sunil/Downloads/title.basics.tsv").rdd
+
+
+scala> val titleOnlyTypeRDD = titlesRDD.map(x => x(1))
+titleOnlyTypeRDD: org.apache.spark.rdd.RDD[Any] = MapPartitionsRDD[23] at map at <console>:25
+
+scala>  titleOnlyTypeRDD.take(10)
+res10: Array[Any] = Array(short, short, short, short, short, short, short, short, movie, short)
+
+scala> val eachTitleMappedRDD = titleOnlyTypeRDD.map(x => (x, 1))
+eachTitleMappedRDD: org.apache.spark.rdd.RDD[(Any, Int)] = MapPartitionsRDD[24] at map at <console>:25
+
+scala> eachTitleMappedRDD.take(10)
+res11: Array[(Any, Int)] = Array((short,1), (short,1), (short,1), (short,1), (short,1), (short,1), (short,1), (short,1), (movie,1), (short,1))
+
+scala> val titleCountRDD = eachTitleMappedRDD.reduceByKey((x, y) => (x + y))
+titleCountRDD: org.apache.spark.rdd.RDD[(Any, Int)] = ShuffledRDD[25] at reduceByKey at <console>:25
+
+scala> titleCountRDD.collect().foreach(println)
+(video,265838)
+(short,741249)
+(tvSpecial,29202)
+(tvSeries,184519)
+(tvEpisode,4871527)
+(tvMovie,121206)
+(videoGame,25559)
+(tvShort,12557)
+(tvMiniSeries,31099)
+(movie,551355)
+
+
+scala> titleCountRDD
+   val titleCountRDD: org.apache.spark.rdd.RDD[(Any, Int)]
+
+
+// Return second element of tuple first and then First element which is nothing swaping.
+scala> val resultRDD = titleCountRDD.map(x => (x._2, x._1))
+
+scala>  resultRDD.collect().foreach(println)
+
+(265838,video)                                                                  
+(741249,short)
+(29202,tvSpecial)
+(184519,tvSeries)
+(4871527,tvEpisode)
+(121206,tvMovie)
+(25559,videoGame)
+(12557,tvShort)
+(31099,tvMiniSeries)
+(551355,movie)
+
+
+val titlePerCategoryRDD =  resultRDD.sortByKey(true)
+titlePerCategoryRDD: org.apache.spark.rdd.RDD[(Int, Any)] = ShuffledRDD[25] at sortByKey at <console>:25
+
+scala> titlePerCategoryRDD.collect().foreach(println)
+(12557,tvShort)
+(25559,videoGame)
+(29202,tvSpecial)
+(31099,tvMiniSeries)
+(121206,tvMovie)
+(184519,tvSeries)
+(265838,video)
+(551355,movie)
+(741249,short)
+(4871527,tvEpisode)
+
+
+
 
 
 we are adding a new column with value 1 for each word, the result of the RDD is PairRDDFunctions which contains key-value pairs, word of type String as Key and 1 of type Int as value.
